@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Skeiðgnúp færslur feature.
+ */
+
+include_once 'skeidgnup_post.features.inc';
