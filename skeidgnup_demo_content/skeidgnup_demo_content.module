@@ -1,0 +1,78 @@
+<?php
+/**
+* Implements hook_help.
+*
+* Displays help and module information.
+*
+* @param path
+*   Which path of the site we're using to display help
+* @param arg
+*   Array that holds the current path as returned from arg() function
+*/
+function skeidgnup_demo_content_help($path, $arg) {
+  switch ($path) {
+    case "admin/help#skeidgnup_demo_content":
+      return '<p>' . t("Býr til efni úr Lorem ipsum texta í allar efnistípur") . '</p>';
+      break;
+  }
+}
+
+function skeidgnup_demo_content_menu() {
+  $items['skeidgnup-demo-content'] = array(
+    'title' => 'Demo content',
+    'description' => t('Create loads of content!'),
+    'page callback' => 'skeidgnup_demo_content_makeit',
+    'access callback' => TRUE,
+    //'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'navigation',
+  );
+  return $items;
+}
+
+function skeidgnup_demo_content_makeit() {
+/**
+* Basic Node Creation Example for Drupal 7
+*
+* This example:
+* - Assumes a standard Drupal 7 installation
+* - Does not verify that the field values are correct
+*/
+  $public_uri  =  'public://skeidgnup-logo.png';
+  $number_of_nodes = 10;
+  $body_text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor. Pellentesque auctor nisi id magna consequat sagittis. Curabitur dapibus enim sit amet elit pharetra tincidunt feugiat nisl imperdiet. Ut convallis libero in urna ultrices accumsan. Donec sed odio eros. Donec viverra mi quis quam pulvinar at malesuada arcu rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.
+
+
+Vivamus fermentum semper porta. Nunc diam velit, adipiscing ut tristique vitae, sagittis vel odio. Maecenas convallis ullamcorper ultricies. Curabitur ornare, ligula semper consectetur sagittis, nisi diam iaculis velit, id fringilla sem nunc vel mi. Nam dictum, odio nec pretium volutpat, arcu ante placerat erat, non tristique elit urna et turpis. Quisque mi metus, ornare sit amet fermentum et, tincidunt et orci. Fusce eget orci a orci congue vestibulum. Ut dolor diam, elementum et vestibulum eu, porttitor vel elit. Curabitur venenatis pulvinar tellus gravida ornare. Sed et erat faucibus nunc euismod ultricies ut id justo. Nullam cursus suscipit nisi, et ultrices justo sodales nec. Fusce venenatis facilisis lectus ac semper. Aliquam at massa ipsum. Quisque bibendum purus convallis nulla ultrices ultricies. Nullam aliquam, mi eu aliquam tincidunt, purus velit laoreet tortor, viverra pretium nisi quam vitae mi. Fusce vel volutpat elit. Nam sagittis nisi dui.';
+ 
+  $node = new stdClass();
+  $node->type = 'post';
+  node_object_prepare($node);
+  $node->comment = 1;   
+  $node->title    = date('c');
+  $node->language = LANGUAGE_NONE;
+  $node->field_post_body[$node->language][0]['value']   = $body_text;
+  $node->field_post_body[$node->language][0]['summary'] = text_summary($body_text);
+  $node->field_post_body[$node->language][0]['format']  = 'filtered_html';
+  $node->field_tax_categories[$node->language][]['tid'] = 1;
+  $path = 'content/programmatically_created_node_' . date('His');
+
+  // add skeidgnup-logo.png as file object
+  $logo_uri = path_to_theme() . '/skeidgnup-logo.png';
+  $file = (object) array(
+    'uid' => 1,
+    'uri' => $logo_uri,
+    'filemime' => file_get_mimetype($logo_uri),
+    'status' => 1,
+  );
+  
+//  $file_obj = file_uri_to_object($logo_uri, FALSE);
+  $file = file_copy($file, 'public://', FILE_EXISTS_RENAME);
+  //$saved_file = file_save($copied_file);
+//  $node->field_post_image = $saved_file;
+  $node->field_post_image[0] = $file;
+  if($node = node_submit($node)) { // Prepare node for saving
+    node_save($node);
+    return "Node with nid " . $node->nid . " saved! fid = " . $file->fid;
+  }
+}

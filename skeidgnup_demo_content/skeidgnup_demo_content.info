@@ -1,0 +1,6 @@
+name = Skeiðgnúp demó efni
+description = Býr til demó efni á vefinn.
+core = 7.x
+package = Skeiðgnúp
+
+files[] = skeidgnup_demo_content.module
