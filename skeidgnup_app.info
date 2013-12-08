@@ -1,0 +1,7 @@
+name = Skeiðgnúp pakki
+core = 7.x
+package = Skeiðgnúp
+version = 7.x-1.0-alpha1
+project = skeidgnup_app
+dependencies[] = skeidgnup_post
+features[features_api][] = api:2
