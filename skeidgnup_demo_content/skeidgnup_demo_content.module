@@ -12,6 +12,76 @@ function skeidgnup_demo_content_help($path, $arg) {
   }
 }
 
+function add_demo_content($type = NULL, $number = NULL, $image = NULL) {
+  
+    $terms = array(
+      
+        $term1 = array(
+            'name' => t('Frétt'),
+            'description' => t('Flokkur fyrir fréttatengt efni'),
+            'vid' => 1,
+
+        ),
+        $term2 = array(
+            'name' => t('Fésið'),
+            'description' => t('Færslur á fésbókina'),
+            'vid' => 1,
+
+        ),
+        $term3 = array(
+            'name' => t('Síða'),
+            'description' => t('Síður með upplýsingum eða fræðsluefni'),
+            'vid' => 1,
+
+        ),        
+    );
+    
+    $number_of_terms = count($terms);
+    if (taxonomy_term_load(1) == FALSE) {
+      foreach ($terms as $term) {
+        $term = (object) $term;
+        taxonomy_term_save($term);
+    }
+  }
+    
+  switch ($type) {
+    case 'post':
+       $logo_uri = path_to_theme() . '/' . $image;
+       $body_text = drupal_ipsum_generate('icelandic', 15, DRUPAL_IPSUM_TYPE_SENTENCE, DRUPAL_IPSUM_START_ANY, TRUE);
+       $file = (object) array(
+         'uid' => 1,
+         'uri' => $logo_uri,
+         'filemime' => file_get_mimetype($logo_uri),
+         'status' => 1,
+         'display' => 1,
+       );
+       
+       $file = file_copy($file, 'public://', FILE_EXISTS_REPLACE);
+       
+         for ($i = 1; $i <= $number; $i++) {
+             $node = new stdClass();
+             $node->type = $type;
+             node_object_prepare($node);
+             $node->comment = 1;   
+             $node->title    = drupal_ipsum_generate('icelandic', 4, DRUPAL_IPSUM_TYPE_WORD, DRUPAL_IPSUM_START_ANY, FALSE);
+             $node->language = LANGUAGE_NONE;
+             $node->field_post_body[$node->language][0]['value']   = $body_text;
+             $node->field_post_body[$node->language][0]['summary'] = text_summary($body_text);
+             $node->field_post_body[$node->language][0]['format']  = 'filtered_html';
+             $node->field_post_category[$node->language][]['tid'] = rand(1, $number_of_terms);
+             $node->field_post_image = array(LANGUAGE_NONE => array('0' => (array)$file));
+
+             
+             if($node = node_submit($node)) { // Prepare node for saving
+               node_save($node);
+             }
+             else
+               return 'Eitthvað skrítið á seyði';
+         }
+        break;
+    }
+}
+
 function skeidgnup_demo_content_drupal_ipsum_vocabularies() {
   return array(
     'icelandic' => array( // Your vocabulary's machine_name.
@@ -66,46 +136,7 @@ function skeidgnup_demo_content_menu() {
 }
 
 function skeidgnup_demo_content_makeit() {
-/**
-* Basic Node Creation Example for Drupal 7
-*
-* This example:
-* - Assumes a standard Drupal 7 installation
-* - Does not verify that the field values are correct
-*/
-  // Create some vocabs
-  
-  $public_uri  =  'public://skeidgnup-logo.png';
-  $number_of_nodes = 10;
-  $body_text = drupal_ipsum_generate('icelandic', 15, DRUPAL_IPSUM_TYPE_SENTENCE, DRUPAL_IPSUM_START_ANY, TRUE);
-  $node = new stdClass();
-  $node->type = 'post';
-  node_object_prepare($node);
-  $node->comment = 1;   
-  $node->title    = drupal_ipsum_generate('icelandic', 4, DRUPAL_IPSUM_TYPE_WORD, DRUPAL_IPSUM_START_ANY, FALSE);
-  $node->language = LANGUAGE_NONE;
-  $node->field_post_body[$node->language][0]['value']   = $body_text;
-  $node->field_post_body[$node->language][0]['summary'] = text_summary($body_text);
-  $node->field_post_body[$node->language][0]['format']  = 'filtered_html';
-  $node->field_tax_categories[$node->language][]['tid'] = 1;
-  $path = 'content/programmatically_created_node_' . date('His');
-
-  // add skeidgnup-logo.png as file object
-  $logo_uri = path_to_theme() . '/skeidgnup-logo.png';
-  $file = (object) array(
-    'uid' => 1,
-    'uri' => $logo_uri,
-    'filemime' => file_get_mimetype($logo_uri),
-    'status' => 1,
-    'display' => 1,
-  );
-  
-  $file_obj = file_uri_to_object($logo_uri, FALSE);
-  $file = file_copy($file, 'public://', FILE_EXISTS_RENAME);
-  $node->field_post_image = array(LANGUAGE_NONE => array('0' => (array)$file));
- 
-  if($node = node_submit($node)) { // Prepare node for saving
-    node_save($node);
-    return "Node with nid " . $node->nid . " saved! fid = " . $file->fid;
-  }
+  //$type, $number, $image
+  add_demo_content('post', 50, 'skeidgnup-logo.png');
+  return 'Allt gekk eins og í sögu.. bæ :-)';
 }

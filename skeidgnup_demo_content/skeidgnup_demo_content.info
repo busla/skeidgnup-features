@@ -3,7 +3,7 @@ description = Býr til demó efni á vefinn.
 core = 7.x
 package = Skeiðgnúp
 
-files[] = skeidgnup_demo_content.module
 files[] = skeidgnup_demo_content.install
+files[] = skeidgnup_demo_content.module
 
 dependencies[] = "skeidgnup_post"

@@ -1,28 +1,2 @@
 <?php
 /** * Implements hook_install() */
-function skeidgnup_demo_content_install() {
-
-  $skeidgnup_terms = array(
-    array(
-      'name' => t('Frétt'),
-      'description' => 'Flokkur fyrir fréttatengt efni',
-      'parent' => array(0),
-      'vid' => 1,
-    ),
-    array(
-      'name' => t('Fésbók'),
-      'description' => 'Senda efni á fésbókarsíðu hreppsins',
-      'parent' => array(0),
-      'vid' => 1,      
-    ),
-    array(
-      'name' => t('Síða'),
-      'description' => 'Síður með upplýsingum og fræðsluefni',
-      'parent' => array(0),
-      'vid' => 1,
-    ),
-  );
-    
-  $term = (object) $skeidgnup_terms;
-  taxonomy_term_save($term);
-}
