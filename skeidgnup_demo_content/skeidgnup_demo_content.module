@@ -137,6 +137,6 @@ function skeidgnup_demo_content_menu() {
 
 function skeidgnup_demo_content_makeit() {
   //$type, $number, $image
-  add_demo_content('post', 50, 'skeidgnup-logo.png');
+  add_demo_content('post', 50, 'thjorsardalur.jpg');
   return 'Allt gekk eins og í sögu.. bæ :-)';
 }

@@ -7,6 +7,7 @@ project = skeidgnup_post
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = file
+dependencies[] = file_entity
 dependencies[] = media
 dependencies[] = options
 dependencies[] = strongarm
