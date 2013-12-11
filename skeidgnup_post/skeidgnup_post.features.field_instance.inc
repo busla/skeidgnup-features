@@ -10,6 +10,48 @@
 function skeidgnup_post_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-post-field_post_attachment'
+  $field_instances['node-post-field_post_attachment'] = array(
+    'bundle' => 'post',
+    'deleted' => 0,
+    'description' => 'Settu inn viðhengi með færslu. Ef færslan er í flokknum <em>Fundargerð</em> þá seturðu inn fylgigögn.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_default',
+        'weight' => 4,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_post_attachment',
+    'label' => 'Viðhengi',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 0,
+      'file_directory' => 'attachments',
+      'file_extensions' => 'pdf',
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'file_generic',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance: 'node-post-field_post_body'
   $field_instances['node-post-field_post_body'] = array(
     'bundle' => 'post',
@@ -48,7 +90,7 @@ function skeidgnup_post_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -90,7 +132,44 @@ function skeidgnup_post_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 3,
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'node-post-field_post_committee'
+  $field_instances['node-post-field_post_committee'] = array(
+    'bundle' => 'post',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Ef þú valdir flokkinn <em>Fundargerð</em> hér fyrir ofan þá velur þú nefndina sem fundaði. Annars velur þú ekkert.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 5,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_post_committee',
+    'label' => 'Nefnd',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 6,
     ),
   );
 
@@ -148,18 +227,22 @@ function skeidgnup_post_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'media_generic',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Ef þú valdir flokkinn <em>Fundargerð</em> hér fyrir ofan þá velur þú nefndina sem fundaði. Annars velur þú ekkert.');
   t('Flokkur');
   t('Meginmál');
   t('Mynd');
+  t('Nefnd');
   t('Settu inn aðaltexta hér. Athugaðu að þú getur sett inn útdrátt (summary) sem birtist fyrst á forsíðunni. Ef ekki, þá verða fyrstu setningarnar notaðar sem útdráttur.');
+  t('Settu inn viðhengi með færslu. Ef færslan er í flokknum <em>Fundargerð</em> þá seturðu inn fylgigögn.');
   t('Veldu flokk á færsluna. Athugaðu að þú getur valið fleiri en einn flokk ef það á við.');
   t('Veldu mynd sem á að fylgja færslunni.');
+  t('Viðhengi');
 
   return $field_instances;
 }

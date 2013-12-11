@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Skeiðgnúp panelar feature.
+ */
+
+include_once 'skeidgnup_panels.features.inc';

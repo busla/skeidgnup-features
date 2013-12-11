@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Skeiðgnúp stillingar feature.
+ */
+
+include_once 'skeidgnup_settings.features.inc';
