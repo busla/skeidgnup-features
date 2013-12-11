@@ -4,6 +4,7 @@ package = Skeiðgnúp
 version = 7.x-1.0-alpha1
 project = skeidgnup_app
 dependencies[] = skeidgnup_demo_content
+dependencies[] = skeidgnup_panels
 dependencies[] = skeidgnup_post
 dependencies[] = skeidgnup_settings
 features[features_api][] = api:2
