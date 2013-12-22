@@ -15,7 +15,7 @@ function skeidgnup_panels_views_default_views() {
   $view->description = '';
   $view->tag = 'default';
   $view->base_table = 'file_managed';
-  $view->human_name = 'Views bootstrap';
+  $view->human_name = 'Skrár';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -43,19 +43,22 @@ function skeidgnup_panels_views_default_views() {
   $handler->display->display_options['fields']['rendered']['field'] = 'rendered';
   $handler->display->display_options['fields']['rendered']['label'] = '';
   $handler->display->display_options['fields']['rendered']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['rendered']['file_view_mode'] = 'slides';
+  $handler->display->display_options['fields']['rendered']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['rendered']['file_view_mode'] = 'header';
   /* Field: File: Alt Text */
   $handler->display->display_options['fields']['field_file_image_alt_text']['id'] = 'field_file_image_alt_text';
   $handler->display->display_options['fields']['field_file_image_alt_text']['table'] = 'field_data_field_file_image_alt_text';
   $handler->display->display_options['fields']['field_file_image_alt_text']['field'] = 'field_file_image_alt_text';
   $handler->display->display_options['fields']['field_file_image_alt_text']['label'] = '';
   $handler->display->display_options['fields']['field_file_image_alt_text']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_file_image_alt_text']['element_default_classes'] = FALSE;
   /* Field: File: Title Text */
   $handler->display->display_options['fields']['field_file_image_title_text']['id'] = 'field_file_image_title_text';
   $handler->display->display_options['fields']['field_file_image_title_text']['table'] = 'field_data_field_file_image_title_text';
   $handler->display->display_options['fields']['field_file_image_title_text']['field'] = 'field_file_image_title_text';
   $handler->display->display_options['fields']['field_file_image_title_text']['label'] = '';
   $handler->display->display_options['fields']['field_file_image_title_text']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_file_image_title_text']['element_default_classes'] = FALSE;
   /* Filter criterion: File: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'file_managed';
@@ -64,8 +67,59 @@ function skeidgnup_panels_views_default_views() {
     'image' => 'image',
   );
 
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'block_1');
+  /* Display: Carousel */
+  $handler = $view->new_display('block', 'Carousel', 'block_1');
+
+  /* Display: Kynningarefni */
+  $handler = $view->new_display('panel_pane', 'Kynningarefni', 'panel_pane_1');
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Global: Random */
+  $handler->display->display_options['sorts']['random']['id'] = 'random';
+  $handler->display->display_options['sorts']['random']['table'] = 'views';
+  $handler->display->display_options['sorts']['random']['field'] = 'random';
+  $handler->display->display_options['allow']['use_pager'] = 0;
+  $handler->display->display_options['allow']['items_per_page'] = 0;
+  $handler->display->display_options['allow']['offset'] = 0;
+  $handler->display->display_options['allow']['link_to_view'] = 0;
+  $handler->display->display_options['allow']['more_link'] = 0;
+  $handler->display->display_options['allow']['path_override'] = 0;
+  $handler->display->display_options['allow']['title_override'] = 0;
+  $handler->display->display_options['allow']['exposed_form'] = 0;
+  $handler->display->display_options['allow']['fields_override'] = 'fields_override';
+
+  /* Display: Block 2 */
+  $handler = $view->new_display('block', 'Block 2', 'block_2');
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Global: Random */
+  $handler->display->display_options['sorts']['random']['id'] = 'random';
+  $handler->display->display_options['sorts']['random']['table'] = 'views';
+  $handler->display->display_options['sorts']['random']['field'] = 'random';
   $export['views_bootstrap'] = $view;
 
   return $export;

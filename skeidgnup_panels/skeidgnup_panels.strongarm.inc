@@ -23,6 +23,7 @@ function skeidgnup_panels_strongarm() {
   $strongarm->name = 'views_defaults';
   $strongarm->value = array(
     'archive' => FALSE,
+    'taxonomy_term' => TRUE,
   );
   $export['views_defaults'] = $strongarm;
 

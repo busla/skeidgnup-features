@@ -60,7 +60,7 @@ function skeidgnup_post_field_default_field_instances() {
     'description' => 'Settu inn aðaltexta hér. Athugaðu að þú getur sett inn útdrátt (summary) sem birtist fyrst á forsíðunni. Ef ekki, þá verða fyrstu setningarnar notaðar sem útdráttur.',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -90,7 +90,7 @@ function skeidgnup_post_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -106,7 +106,7 @@ function skeidgnup_post_field_default_field_instances() {
     'description' => 'Veldu flokk á færsluna. Athugaðu að þú getur valið fleiri en einn flokk ef það á við.',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
@@ -144,7 +144,7 @@ function skeidgnup_post_field_default_field_instances() {
     'description' => 'Ef þú valdir flokkinn <em>Fundargerð</em> hér fyrir ofan þá velur þú nefndina sem fundaði. Annars velur þú ekkert.',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
@@ -180,7 +180,7 @@ function skeidgnup_post_field_default_field_instances() {
     'description' => 'Veldu mynd sem á að fylgja færslunni.',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'file_entity',
         'settings' => array(
           'file_view_mode' => 'teaser',
@@ -227,7 +227,7 @@ function skeidgnup_post_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'media_generic',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 

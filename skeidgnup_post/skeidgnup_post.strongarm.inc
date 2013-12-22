@@ -89,6 +89,9 @@ function skeidgnup_post_strongarm() {
         'title' => array(
           'weight' => '0',
         ),
+        'path' => array(
+          'weight' => '7',
+        ),
       ),
       'display' => array(),
     ),

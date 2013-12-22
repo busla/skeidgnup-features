@@ -12,141 +12,113 @@ function skeidgnup_demo_content_help($path, $arg) {
   }
 }
 
-function add_demo_content($type = NULL, $number = NULL, $file = NULL, $taxonomy = NULL) {
+function add_demo_content($type = NULL, $number = NULL, $file = NULL, $vocabulary = NULL) {
   
     $terms_news = array(
       
-        $t1 = array(
+          array(
             'name' => t('Frétt'),
             'description' => t('Flokkur fyrir fréttatengt efni'),
-            'vid' => 1,
-        ),
-        $t2 = array(
+          ),
+          array(
             'name' => t('Fésið'),
             'description' => t('Færslur á fésbókina'),
-            'vid' => 1,
-        ),
-        $t3 = array(
+          ),
+          array(
             'name' => t('Síða'),
             'description' => t('Síður með upplýsingum eða fræðsluefni'),
-            'vid' => 1,
-        ),        
-        $t4 = array(
+          ),        
+          array(
             'name' => t('Fundargerð'),
             'description' => t('Fundargerðir hjá nefndum sveitastjórnar.'),
-            'vid' => 1,
-        ),
-        $t5 = array(
+          ),
+          array(
             'name' => t('Laus störf'),
             'description' => t('Laust störf í hreppnum.'),
-            'vid' => 1,
-        ),
-        $t6 = array(
+          ),
+          array(
             'name' => t('Fréttabréf'),
             'description' => t('Setja efnið á minnislista fyrir næsta fréttabréf.'),
-            'vid' => 1,
-        ),
+          ),
     );
     
     $terms_committee = array (
-        $t7 = array(
+        array(
             'name' => t('Hreppsnefnd'),
-            'vid' => 2,
         ),        
-        $t8 = array(
+        array(
             'name' => t('Skólanefnd'),
-            'vid' => 2,
         ),        
-        $t9 = array(
+        array(
             'name' => t('Umhverfisnefnd'),
-            'vid' => 2,
         ),        
-        $t10 = array(
+        array(
             'name' => t('Almannavarnanefnd'),
-            'vid' => 2,
         ),        
-        $t11 = array(
+        array(
             'name' => t('Skipulags og byggingarnefnd'),
-            'vid' => 2,
         ),        
-        $t12 = array(
+        array(
             'name' => t('Brunavarnarnefnd'),
-            'vid' => 2,
         ),        
-        $t13 = array(
+        array(
             'name' => t('Hússtjórn Þjóðveldisbæjar'),
-            'vid' => 2,
         ),        
-        $t14 = array(
+        array(
             'name' => t('Landsþing SÍS'),
-            'vid' => 2,
         ), 
-        $t15 = array(
+        array(
             'name' => t('Ráðgjafanefnd um friðun Þjórsárvera'),
-            'vid' => 2,
         ),
-        $t16 = array(
+        array(
             'name' => t('Fræðslunefnd Flúðaskóla'),
-            'vid' => 2,
         ),         
-        $t17 = array(
+        array(
             'name' => t('Atvinnu, fjarskipta og samgöngunefnd'),
-            'vid' => 2,
         ),         
-        $t18 = array(
+        array(
             'name' => t('Menningar, æskulýðs, velferðar- og jafnréttisnefnd'),
-            'vid' => 2,
         ),         
-        $t19 = array(
+        array(
             'name' => t('Afréttarnefnd Gnúpverjaafréttar'),
-            'vid' => 2,
         ),         
-        $t20 = array(
+        array(
             'name' => t('Kjörstjórn'),
-            'vid' => 2,
         ),         
-        $t21 = array(
+        array(
             'name' => t('Félagsmálanefnd'),
-            'vid' => 2,
         ),        
-        $t22 = array(
+        array(
             'name' => t('Skoðunarmenn hreppsreikninga'),
-            'vid' => 2,
         ),        
-        $t23 = array(
+        array(
             'name' => t('Aðalfundur SASS'),
-            'vid' => 2,
         ),        
-        $t24 = array(
+        array(
             'name' => t('Aðalfundur Heilbrigðiseftirlits Suðurlands'),
-            'vid' => 2,
         ),        
-        $t25 = array(
+        array(
             'name' => t('Aðalfundur Skólaskrifstofu Suðurlands'),
-            'vid' => 2,
         ),        
-        $t26 = array(
+        array(
             'name' => t('Sorpstöð Suðurlands'),
-            'vid' => 2,
         ),        
     );
     
     $number_of_news_terms = count($terms_news);
-    $number_of_committee_terms = count($terms_committee);    
-    if (taxonomy_term_load(1) == FALSE) {
-      foreach ($terms_news as $term) {
-        $term = (object) $term;
-        taxonomy_term_save($term);
-      }    
-      foreach ($terms_committee as $term) {
-        $term = (object) $term;
-        taxonomy_term_save($term);
-      }    
-
-  }
+    $number_of_committee_terms = count($terms_committee);
     
-  switch ($taxonomy) {
-    case 'news':
+  switch ($vocabulary) {
+    case 'tax_category':
+      if (!(taxonomy_term_load($number_of_news_terms))) {
+        $vocabulary_obj = taxonomy_vocabulary_machine_name_load($vocabulary);    
+        foreach ($terms_news as $term) {
+          $term['vid'] = $vocabulary_obj->vid;
+          $term = (object) $term;
+          taxonomy_term_save($term);
+        }    
+      } // closing if statement
+          
        $file_uri = path_to_theme() . '/' . $file;
        $body_text = drupal_ipsum_generate('icelandic', 15, DRUPAL_IPSUM_TYPE_SENTENCE, DRUPAL_IPSUM_START_ANY, TRUE);
        $file_obj = (object) array(
@@ -169,7 +141,7 @@ function add_demo_content($type = NULL, $number = NULL, $file = NULL, $taxonomy 
              $node->field_post_body[$node->language][0]['value']   = $body_text;
              $node->field_post_body[$node->language][0]['summary'] = text_summary($body_text);
              $node->field_post_body[$node->language][0]['format']  = 'filtered_html';
-             $node->field_post_category[$node->language][]['tid'] = rand(1, $number_of_news_terms);
+             $node->field_post_category[$node->language][]['tid']  = rand(1, $number_of_news_terms);
              $node->field_post_image = array(LANGUAGE_NONE => array('0' => (array)$file_obj));
 
              
@@ -180,7 +152,17 @@ function add_demo_content($type = NULL, $number = NULL, $file = NULL, $taxonomy 
                return 'Eitthvað skrítið á seyði';
          }
         break;
-    case 'meeting':
+    case 'committee':
+
+      if (!(taxonomy_term_load($number_of_news_terms+$number_of_committee_terms))) {    
+       $vocabulary_obj = taxonomy_vocabulary_machine_name_load($vocabulary);    
+       foreach ($terms_committee as $term) {
+         $term['vid'] = $vocabulary_obj->vid;       
+         $term = (object) $term;
+         taxonomy_term_save($term);
+       }    
+      } // closing if statement   
+       $term_report = taxonomy_get_term_by_name('Fundargerð');
        $file_uri = path_to_theme() . '/' . $file;
        $body_text = drupal_ipsum_generate('icelandic', 15, DRUPAL_IPSUM_TYPE_SENTENCE, DRUPAL_IPSUM_START_ANY, TRUE);
        $file = (object) array(
@@ -192,7 +174,6 @@ function add_demo_content($type = NULL, $number = NULL, $file = NULL, $taxonomy 
        );
        
        $file = file_copy($file, 'public://', FILE_EXISTS_REPLACE);
-       
          for ($i = 1; $i <= $number; $i++) {
              $node = new stdClass();
              $node->type = $type;
@@ -200,13 +181,12 @@ function add_demo_content($type = NULL, $number = NULL, $file = NULL, $taxonomy 
              $node->comment = 1;   
              $node->title    = drupal_ipsum_generate('icelandic', 4, DRUPAL_IPSUM_TYPE_WORD, DRUPAL_IPSUM_START_ANY, FALSE);
              $node->language = LANGUAGE_NONE;
-             $node->field_post_body[$node->language][0]['value']   = $body_text;
-             $node->field_post_body[$node->language][0]['summary'] = text_summary($body_text);
-             $node->field_post_body[$node->language][0]['format']  = 'filtered_html';
-             $node->field_post_category[$node->language][]['tid'] = rand(7, $number_of_commiterms);
-             $node->field_post_category[$node->language][]['tid'] = rand(7, $number_of_commiterms);
+             $node->field_post_body[$node->language][0]['value']    = $body_text;
+             $node->field_post_body[$node->language][0]['summary']  = text_summary($body_text);
+             $node->field_post_body[$node->language][0]['format']   = 'filtered_html';
+             $node->field_post_category[$node->language][]['tid']   = key($term_report);
+             $node->field_post_committee[$node->language][]['tid']  = rand($number_of_news_terms, ($number_of_news_terms + $number_of_committee_terms));
              $node->field_post_attachment = array(LANGUAGE_NONE => array('0' => (array)$file));
-
              
              if($node = node_submit($node)) { // Prepare node for saving
                node_save($node);
@@ -214,6 +194,7 @@ function add_demo_content($type = NULL, $number = NULL, $file = NULL, $taxonomy 
              else
                return 'Eitthvað skrítið á seyði';
          }
+
         break;
     }
 }
@@ -272,8 +253,8 @@ function skeidgnup_demo_content_menu() {
 }
 
 function skeidgnup_demo_content_makeit() {
-  //$type, $number, $file, $taxonomy
-  add_demo_content('post', 50, 'thjorsardalur.jpg', 'news');
+  //$type, $number, $file, $vocabulary_machine_name
+  add_demo_content('post', 50, 'thjorsardalur.jpg', 'tax_category');
   add_demo_content('post', 50, 'pdf_demo.pdf', 'committee');  
   return 'Allt gekk eins og í sögu.. bæ :-)';
 }

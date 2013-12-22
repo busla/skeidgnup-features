@@ -53,11 +53,15 @@ function skeidgnup_panels_default_page_manager_pages() {
       'right-row-one' => NULL,
       'right-row-two' => NULL,
       'right-row-three' => NULL,
+      'header' => NULL,
     ),
     'left' => array(
       'style' => '-1',
     ),
     'right' => array(
+      'style' => 'bootstrap_panels_horizontal_tabs',
+    ),
+    'right-row-one' => array(
       'style' => 'bootstrap_panels_horizontal_tabs',
     ),
   );
@@ -73,8 +77,11 @@ function skeidgnup_panels_default_page_manager_pages() {
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'override_title' => 1,
+      'override_title' => 0,
       'override_title_text' => '',
+      'exposed' => array(
+        'field_post_category_tid' => '1',
+      ),
     );
     $pane->cache = array();
     $pane->style = array(
@@ -88,18 +95,12 @@ function skeidgnup_panels_default_page_manager_pages() {
     $display->panels['left'][0] = 'new-1';
     $pane = new stdClass();
     $pane->pid = 'new-2';
-    $pane->panel = 'right';
+    $pane->panel = 'right-row-one';
     $pane->type = 'views_panes';
-    $pane->subtype = 'skeidgnup_meetings-panel_pane_1';
+    $pane->subtype = 'pages-panel_pane_2';
     $pane->shown = TRUE;
     $pane->access = array();
-    $pane->configuration = array(
-      'fields_override' => array(
-        'title' => 1,
-        'field_post_attachment' => 0,
-        'field_post_committee' => 1,
-      ),
-    );
+    $pane->configuration = array();
     $pane->cache = array();
     $pane->style = array(
       'settings' => NULL,
@@ -109,30 +110,9 @@ function skeidgnup_panels_default_page_manager_pages() {
     $pane->position = 0;
     $pane->locks = array();
     $display->content['new-2'] = $pane;
-    $display->panels['right'][0] = 'new-2';
+    $display->panels['right-row-one'][0] = 'new-2';
     $pane = new stdClass();
     $pane->pid = 'new-3';
-    $pane->panel = 'right';
-    $pane->type = 'block';
-    $pane->subtype = 'node-recent';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'override_title' => 0,
-      'override_title_text' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 1;
-    $pane->locks = array();
-    $display->content['new-3'] = $pane;
-    $display->panels['right'][1] = 'new-3';
-    $pane = new stdClass();
-    $pane->pid = 'new-4';
     $pane->panel = 'right-row-one';
     $pane->type = 'block';
     $pane->subtype = 'views-archive-block';
@@ -148,10 +128,39 @@ function skeidgnup_panels_default_page_manager_pages() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 0;
+    $pane->position = 1;
+    $pane->locks = array();
+    $display->content['new-3'] = $pane;
+    $display->panels['right-row-one'][1] = 'new-3';
+    $pane = new stdClass();
+    $pane->pid = 'new-4';
+    $pane->panel = 'right-row-one';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'skeidgnup_meetings-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'use_pager' => 0,
+      'pager_id' => '0',
+      'items_per_page' => '5',
+      'fields_override' => array(
+        'title' => 1,
+        'field_post_committee' => 1,
+      ),
+      'exposed' => array(
+        'field_post_committee_tid' => 'All',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
     $pane->locks = array();
     $display->content['new-4'] = $pane;
-    $display->panels['right-row-one'][0] = 'new-4';
+    $display->panels['right-row-one'][2] = 'new-4';
   $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;

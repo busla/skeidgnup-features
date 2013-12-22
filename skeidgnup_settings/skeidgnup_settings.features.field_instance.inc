@@ -29,6 +29,12 @@ function skeidgnup_settings_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'header' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'preview' => array(
         'label' => 'above',
         'settings' => array(),
@@ -85,6 +91,12 @@ function skeidgnup_settings_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'header' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
       ),
       'preview' => array(
         'label' => 'above',

@@ -28,6 +28,10 @@ function skeidgnup_settings_strongarm() {
         'label' => 'Slides',
         'custom settings' => 1,
       ),
+      'header' => array(
+        'label' => 'Header',
+        'custom settings' => 1,
+      ),
     ),
   );
   $export['entity_view_modes'] = $strongarm;
@@ -39,6 +43,9 @@ function skeidgnup_settings_strongarm() {
   $strongarm->value = array(
     'view_modes' => array(
       'slides' => array(
+        'custom_settings' => FALSE,
+      ),
+      'header' => array(
         'custom_settings' => FALSE,
       ),
     ),
@@ -58,9 +65,19 @@ function skeidgnup_settings_strongarm() {
       'slides' => array(
         'custom_settings' => TRUE,
       ),
+      'header' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
-      'form' => array(),
+      'form' => array(
+        'filename' => array(
+          'weight' => '-10',
+        ),
+        'preview' => array(
+          'weight' => '-5',
+        ),
+      ),
       'display' => array(),
     ),
   );
@@ -70,7 +87,7 @@ function skeidgnup_settings_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'jquery_update_jquery_cdn';
-  $strongarm->value = 'jquery';
+  $strongarm->value = 'google';
   $export['jquery_update_jquery_cdn'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -84,8 +101,43 @@ function skeidgnup_settings_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_admin_theme';
-  $strongarm->value = 1;
+  $strongarm->value = '1';
   $export['node_admin_theme'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_case';
+  $strongarm->value = '1';
+  $export['pathauto_case'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_file_pattern';
+  $strongarm->value = 'files/[file:name]';
+  $export['pathauto_file_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_post_pattern';
+  $strongarm->value = '[node:menu-link:parents:join-path]/[node:title]';
+  $export['pathauto_node_post_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_transliterate';
+  $strongarm->value = 1;
+  $export['pathauto_transliterate'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_verbose';
+  $strongarm->value = 0;
+  $export['pathauto_verbose'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -124,14 +176,16 @@ function skeidgnup_settings_strongarm() {
     'general__active_tab' => 'edit-theme-settings',
     'bootstrap__active_tab' => 'edit-components',
     'bootstrap_breadcrumb' => '1',
-    'bootstrap_breadcrumb_home' => 0,
-    'bootstrap_breadcrumb_title' => 1,
-    'bootstrap_navbar_position' => 'fixed-top',
+    'bootstrap_breadcrumb_home' => 1,
+    'bootstrap_breadcrumb_title' => 0,
+    'bootstrap_navbar_position' => 'static-top',
     'bootstrap_navbar_inverse' => 0,
     'bootstrap_region_well-navigation' => '',
     'bootstrap_region_well-header' => '',
     'bootstrap_region_well-highlighted' => '',
     'bootstrap_region_well-help' => '',
+    'bootstrap_region_well-slideshow' => '',
+    'bootstrap_region_well-promotions' => '',
     'bootstrap_region_well-content' => '',
     'bootstrap_region_well-sidebar_first' => 'well',
     'bootstrap_region_well-sidebar_second' => '',
